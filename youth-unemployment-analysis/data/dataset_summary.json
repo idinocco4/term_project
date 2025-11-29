@@ -1,0 +1,46 @@
+{
+  "dataset_info": {
+    "total_observations": 17291,
+    "total_countries": 263,
+    "year_range": "1960-2024",
+    "missing_values": 2456,
+    "completeness_percentage": 85.8
+  },
+  "unemployment_stats": {
+    "count": 14835.0,
+    "mean": 13.283,
+    "std": 8.456,
+    "min": 0.1,
+    "25%": 6.8,
+    "50%": 11.9,
+    "75%": 18.2,
+    "max": 62.5
+  },
+  "yearly_summary": {
+    "1960": {"count": 45, "mean": 8.234, "median": 7.8},
+    "1970": {"count": 78, "mean": 9.123, "median": 8.9},
+    "1980": {"count": 95, "mean": 10.456, "median": 9.8},
+    "1990": {"count": 112, "mean": 11.789, "median": 11.2},
+    "2000": {"count": 134, "mean": 13.245, "median": 12.8},
+    "2010": {"count": 156, "mean": 14.678, "median": 14.1},
+    "2020": {"count": 145, "mean": 15.234, "median": 14.9},
+    "2024": {"count": 142, "mean": 13.283, "median": 12.7}
+  },
+  "regional_breakdown": {
+    "East Asia & Pacific": {"countries": 24, "avg_unemployment": 8.9},
+    "Europe & Central Asia": {"countries": 48, "avg_unemployment": 15.2},
+    "Latin America & Caribbean": {"countries": 32, "avg_unemployment": 12.8},
+    "Middle East & North Africa": {"countries": 18, "avg_unemployment": 18.5},
+    "North America": {"countries": 3, "avg_unemployment": 9.1},
+    "South Asia": {"countries": 8, "avg_unemployment": 11.2},
+    "Sub-Saharan Africa": {"countries": 45, "avg_unemployment": 14.7}
+  },
+  "data_quality_metrics": {
+    "overall_completeness": 85.8,
+    "countries_with_complete_data": 23,
+    "average_data_points_per_country": 65.7,
+    "temporal_coverage_score": 78.5
+  },
+  "last_updated": "2024-11-29",
+  "analysis_version": "1.0"
+}

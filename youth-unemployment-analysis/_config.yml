@@ -1,0 +1,52 @@
+# Jekyll configuration for GitHub Pages
+title: Global Youth Unemployment Analysis
+description: Interactive analysis of youth unemployment patterns worldwide from 1960-2024
+url: https://yourusername.github.io
+baseurl: /youth-unemployment-analysis
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+theme: minima
+
+# Collections
+collections:
+  notebooks:
+    output: true
+    permalink: /notebooks/:name/
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+
+# Exclude from processing
+exclude:
+  - .bundle/
+  - .sass-cache/
+  - .jekyll-cache/
+  - gemfiles/
+  - Gemfile
+  - Gemfile.lock
+  - vendor/
+  - .bundle
+  - .sass-cache
+  - .jekyll-cache
+  - .github/
+  - .gitignore
+  - requirements.txt
+  - generate_pdf_report.py
+  - app.py
+
+# Include files
+include:
+  - _pages
+
+# Collections settings
+defaults:
+  - scope:
+      path: ""
+      type: notebooks
+    values:
+      layout: page
+      permalink: /notebooks/:name/

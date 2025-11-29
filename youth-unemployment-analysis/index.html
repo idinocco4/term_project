@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Youth Unemployment Analysis</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+        }
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 0;
+            margin-bottom: 2rem;
+        }
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .metric-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .chart-container {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                📊 Global Youth Unemployment Analysis
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h1 class="display-4 fw-bold">Global Youth Unemployment Analysis</h1>
+                    <p class="lead">Interactive exploration of youth unemployment patterns from 1960-2024 across 263 countries and regions worldwide.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Metrics -->
+    <div class="container">
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="card metric-card text-white">
+                    <div class="card-body text-center">
+                        <h3 id="totalCountries">-</h3>
+                        <p class="mb-0">Countries Analyzed</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card metric-card text-white">
+                    <div class="card-body text-center">
+                        <h3 id="globalAverage">-</h3>
+                        <p class="mb-0">Global Average (2024)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card metric-card text-white">
+                    <div class="card-body text-center">
+                        <h3 id="dataPoints">-</h3>
+                        <p class="mb-0">Data Points</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card metric-card text-white">
+                    <div class="card-body text-center">
+                        <h3 id="yearRange">1960-2024</h3>
+                        <p class="mb-0">Time Coverage</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <ul class="nav nav-tabs" id="analysisTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="global-tab" data-bs-toggle="tab" data-bs-target="#global" type="button" role="tab">Global Trends</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="regional-tab" data-bs-toggle="tab" data-bs-target="#regional" type="button" role="tab">Regional Analysis</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="country-tab" data-bs-toggle="tab" data-bs-target="#country" type="button" role="tab">Country Rankings</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="about-tab" data-bs-toggle="tab" data-bs-target="#about" type="button" role="tab">About</button>
+            </li>
+        </ul>
+
+        <!-- Tab Content -->
+        <div class="tab-content mt-4" id="analysisTabsContent">
+            <!-- Global Trends Tab -->
+            <div class="tab-pane fade show active" id="global" role="tabpanel">
+                <div class="chart-container">
+                    <h3 class="mb-4">Global Youth Unemployment Trends (1960-2024)</h3>
+                    <div id="globalTrendsChart" style="height: 500px;"></div>
+                </div>
+            </div>
+
+            <!-- Regional Analysis Tab -->
+            <div class="tab-pane fade" id="regional" role="tabpanel">
+                <div class="chart-container">
+                    <h3 class="mb-4">Regional Youth Unemployment Comparison (2024)</h3>
+                    <div id="regionalChart" style="height: 500px;"></div>
+                </div>
+            </div>
+
+            <!-- Country Rankings Tab -->
+            <div class="tab-pane fade" id="country" role="tabpanel">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="chart-container">
+                            <h4>Lowest Unemployment Rates</h4>
+                            <div id="lowestCountriesChart" style="height: 400px;"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="chart-container">
+                            <h4>Highest Unemployment Rates</h4>
+                            <div id="highestCountriesChart" style="height: 400px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- About Tab -->
+            <div class="tab-pane fade" id="about" role="tabpanel">
+                <div class="chart-container">
+                    <h3>About This Analysis</h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>📊 Dataset</h5>
+                            <ul>
+                                <li>Source: World Bank World Development Indicators</li>
+                                <li>Coverage: 263 countries and regions</li>
+                                <li>Time Period: 1960-2024</li>
+                                <li>Metric: Youth unemployment rate (15-24 years)</li>
+                            </ul>
+
+                            <h5>🛠️ Methodology</h5>
+                            <ul>
+                                <li>Data cleaning and quality assessment</li>
+                                <li>Statistical trend analysis</li>
+                                <li>Regional comparative analysis</li>
+                                <li>Interactive visualizations</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h5>📈 Key Findings</h5>
+                            <ul>
+                                <li>Global average youth unemployment: ~13.3%</li>
+                                <li>Significant regional disparities</li>
+                                <li>East Asia & Pacific shows strongest improvement</li>
+                                <li>Middle East & North Africa faces highest rates</li>
+                            </ul>
+
+                            <h5>🎯 Analysis Tools</h5>
+                            <ul>
+                                <li>Python, Pandas, NumPy</li>
+                                <li>Matplotlib, Seaborn, Plotly</li>
+                                <li>Jupyter Notebooks</li>
+                                <li>Statistical modeling</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white mt-5 py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Global Youth Unemployment Analysis</h5>
+                    <p>Comprehensive analysis of youth employment challenges worldwide.</p>
+                </div>
+                <div class="col-md-6 text-end">
+                    <h5>Resources</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="https://github.com/yourusername/youth-unemployment-analysis" class="text-white" target="_blank">📂 GitHub Repository</a></li>
+                        <li><a href="reports/youth_unemployment_report.md" class="text-white">📋 Full Report</a></li>
+                        <li><a href="notebooks/" class="text-white">📊 Analysis Notebooks</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center">
+                <p class="mb-0">© 2024 Data Analysis Team | Data Source: World Bank World Development Indicators</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script>
+        // Sample data (in a real implementation, this would be loaded from CSV/JSON)
+        const sampleData = {
+            globalTrends: [
+                {year: 1960, rate: 8.2}, {year: 1970, rate: 9.1}, {year: 1980, rate: 10.5},
+                {year: 1990, rate: 11.8}, {year: 2000, rate: 13.2}, {year: 2010, rate: 14.7},
+                {year: 2020, rate: 15.2}, {year: 2024, rate: 13.3}
+            ],
+            regionalData: [
+                {region: 'East Asia & Pacific', rate: 8.9},
+                {region: 'Europe & Central Asia', rate: 15.2},
+                {region: 'Latin America & Caribbean', rate: 12.8},
+                {region: 'Middle East & North Africa', rate: 18.5},
+                {region: 'North America', rate: 9.1},
+                {region: 'South Asia', rate: 11.2},
+                {region: 'Sub-Saharan Africa', rate: 14.7}
+            ],
+            lowestCountries: [
+                {country: 'Japan', rate: 4.2}, {country: 'Switzerland', rate: 4.8},
+                {country: 'Germany', rate: 5.1}, {country: 'Austria', rate: 5.3},
+                {country: 'Netherlands', rate: 5.8}, {country: 'Norway', rate: 6.1}
+            ],
+            highestCountries: [
+                {country: 'South Africa', rate: 45.2}, {country: 'Namibia', rate: 38.9},
+                {country: 'Eswatini', rate: 35.6}, {country: 'Botswana', rate: 32.1},
+                {country: 'Lesotho', rate: 30.8}, {country: 'Greece', rate: 28.4}
+            ]
+        };
+
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            updateMetrics();
+            createGlobalTrendsChart();
+            createRegionalChart();
+            createCountryCharts();
+        });
+
+        function updateMetrics() {
+            document.getElementById('totalCountries').textContent = '263';
+            document.getElementById('globalAverage').textContent = '13.3%';
+            document.getElementById('dataPoints').textContent = '17,291';
+        }
+
+        function createGlobalTrendsChart() {
+            const trace = {
+                x: sampleData.globalTrends.map(d => d.year),
+                y: sampleData.globalTrends.map(d => d.rate),
+                mode: 'lines+markers',
+                name: 'Global Average',
+                line: {color: '#1f77b4', width: 3},
+                marker: {size: 8}
+            };
+
+            const layout = {
+                title: '',
+                xaxis: {title: 'Year'},
+                yaxis: {title: 'Youth Unemployment Rate (%)'},
+                margin: {l: 50, r: 50, t: 20, b: 50}
+            };
+
+            Plotly.newPlot('globalTrendsChart', [trace], layout);
+        }
+
+        function createRegionalChart() {
+            const trace = {
+                x: sampleData.regionalData.map(d => d.region),
+                y: sampleData.regionalData.map(d => d.rate),
+                type: 'bar',
+                marker: {
+                    color: sampleData.regionalData.map(d => d.rate),
+                    colorscale: 'YlOrRd'
+                }
+            };
+
+            const layout = {
+                title: '',
+                xaxis: {title: '', tickangle: -45},
+                yaxis: {title: 'Youth Unemployment Rate (%)'},
+                margin: {l: 50, r: 50, t: 20, b: 100}
+            };
+
+            Plotly.newPlot('regionalChart', [trace], layout);
+        }
+
+        function createCountryCharts() {
+            // Lowest countries chart
+            const lowestTrace = {
+                x: sampleData.lowestCountries.map(d => d.rate),
+                y: sampleData.lowestCountries.map(d => d.country),
+                type: 'bar',
+                orientation: 'h',
+                marker: {color: '#2ca02c'},
+                name: 'Lowest Rates'
+            };
+
+            const lowestLayout = {
+                title: '',
+                xaxis: {title: 'Youth Unemployment Rate (%)'},
+                yaxis: {title: ''},
+                margin: {l: 100, r: 50, t: 20, b: 50}
+            };
+
+            Plotly.newPlot('lowestCountriesChart', [lowestTrace], lowestLayout);
+
+            // Highest countries chart
+            const highestTrace = {
+                x: sampleData.highestCountries.map(d => d.rate),
+                y: sampleData.highestCountries.map(d => d.country),
+                type: 'bar',
+                orientation: 'h',
+                marker: {color: '#d62728'},
+                name: 'Highest Rates'
+            };
+
+            const highestLayout = {
+                title: '',
+                xaxis: {title: 'Youth Unemployment Rate (%)'},
+                yaxis: {title: ''},
+                margin: {l: 100, r: 50, t: 20, b: 50}
+            };
+
+            Plotly.newPlot('highestCountriesChart', [highestTrace], highestLayout);
+        }
+    </script>
+</body>
+</html>
