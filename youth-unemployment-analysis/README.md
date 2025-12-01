@@ -290,8 +290,8 @@ https://github.com/yourusername/youth-unemployment-analysis
 ## Contact
 
 For questions, suggestions, or collaboration opportunities:
-- **Project Lead**: [Your Name]
-- **Email**: [your.email@example.com]
+- **Project Lead**: [Isabelle DiNocco]
+- **Email**: [idinocco@su.suffolk.edu]
 - **GitHub Issues**: [Create an issue](https://github.com/yourusername/youth-unemployment-analysis/issues)
 
 ---
