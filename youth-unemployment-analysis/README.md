@@ -81,13 +81,13 @@ folium >= 0.12.0         # Interactive maps
 
 All analysis notebooks are available on Google Colab with "Anyone with link" permissions:
 
-### 1. [Data Exploration and Cleaning](https://colab.research.google.com/notebooks/youth_unemployment_exploration.ipynb)
+### 1. [Data Exploration and Cleaning](https://colab.research.google.com/drive/1FDedMcMRzmyz3cmcUJM1ZtzT_wnNK6FH?usp=sharing)
 - Initial data assessment and quality checks
 - Data cleaning and preprocessing
 - Exploratory data analysis
 - Missing data analysis
 
-### 2. [Global Trends Analysis](https://colab.research.google.com/notebooks/youth_unemployment_global_trends.ipynb)
+### 2. [Global Trends Analysis](https://colab.research.google.com/drive/19IXwBJNIVe9KvifvbISWh-2dLN_czIA6?usp=sharing)
 - Long-term global patterns (1960-2024)
 - Decade-by-decade analysis
 - Recent developments (2020-2024)
